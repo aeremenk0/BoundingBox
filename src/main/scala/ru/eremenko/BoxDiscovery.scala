@@ -1,6 +1,6 @@
 package ru.eremenko
 
-object AdjacentDiscovery {
+object BoxDiscovery {
   def adjacentSet(p: Point, ps: Set[Point]) : Set[Point] = {
     val t = Set(Point(p.v-1, p.h), Point(p.v, p.h-1), Point(p.v+1, p.h), Point(p.v, p.h+1))
     t.filter(ps)

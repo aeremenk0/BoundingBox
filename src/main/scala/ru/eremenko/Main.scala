@@ -12,10 +12,10 @@ object Main {
   }
 
   def solve(m: Vector[Vector[Boolean]]): List[Box] = {
-    import AdjacentDiscovery._
+    import BoxDiscovery._
     val s = getSet(m)
     val cgs = discoverAllContiguousGroups(s)
-    val bb = cgs.filterNot(_.isEmpty).map(s => getContiguousGroupBox(s.head, s.tail))
+    val bb = cgs.filterNot(_.size < 2).map(s => getContiguousGroupBox(s.head, s.tail))
     removeOverlappingBoxes(bb)
   }
 
@@ -37,6 +37,6 @@ object Main {
           }
       }
 
-    go(ls.sortWith((a, b) => a.area > b.area), Nil)
+    go(ls, Nil)
   }
 }

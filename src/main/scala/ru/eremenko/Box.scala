@@ -1,14 +1,6 @@
 package ru.eremenko
 
 case class Box(topLeft: Point, bottomRight: Point) {
-  def area: Int = Math.abs(bottomRight.v - topLeft.v)*Math.abs(bottomRight.h - topLeft.h)
-  def isCorrect: Boolean = area > 0
-
-  def isContains(b: Box): Boolean = {
-    topLeft.v <= b.topLeft.v && topLeft.h <= b.topLeft.h &&
-      bottomRight.v >= b.bottomRight.v && bottomRight.h >= b.bottomRight.h
-  }
-
   def isOverlaps(b: Box): Boolean = {
     if (topLeft.h > b.bottomRight.h || b.topLeft.h > bottomRight.h){
       false

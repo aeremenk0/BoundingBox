@@ -3,8 +3,8 @@ package ru.eremenko
 import org.scalatest.{FlatSpec, Matchers}
 import ru.eremenko.Main.toMatrix
 
-class AdjacentDiscoverySpec extends FlatSpec with Matchers {
-  import AdjacentDiscovery._
+class BoxDiscoverySpec extends FlatSpec with Matchers {
+  import BoxDiscovery._
 
   "adjacentSet" should "return an empty set if input set is empty" in {
     val r = adjacentSet(Point(0,0), Set.empty)
@@ -106,7 +106,6 @@ class AdjacentDiscoverySpec extends FlatSpec with Matchers {
                |-**---
                |-***--
                |------""".stripMargin.split("\n").toIterator
-
 
     val cg = discoverContiguousGroup(Point(1,1), getSet(toMatrix(in)))
 

@@ -36,4 +36,49 @@ class MainSpec extends FlatSpec with Matchers {
     res.size shouldBe 1
     res(0).isEmpty shouldBe (true)
   }
+
+  "solve" should "return List of Boxes" in {
+    {
+      val input =
+        """**-------***
+          |-*--**--***-
+          |-----***--**
+          |-------***--""".stripMargin.split("\n").toIterator
+
+      val m = toMatrix(input)
+      val r = solve(m)
+
+      r should not be 'empty
+      r.size shouldBe(1)
+
+      r shouldBe List(Box(Point(0,0), Point(1,1)))
+    }
+    {
+      val input =
+        """-*-
+          |***
+          |-*-
+        """.stripMargin.split("\n").toIterator
+
+      val m = toMatrix(input)
+      val r = solve(m)
+
+      r should not be 'empty
+      r.size shouldBe(1)
+
+      r shouldBe List(Box(Point(0,0), Point(2,2)))
+    }
+    {
+      val input =
+        """---**
+          |***-*
+          |-***-
+        """.stripMargin.split("\n").toIterator
+
+      val m = toMatrix(input)
+      val r = solve(m)
+
+      r shouldBe'empty
+    }
+  }
 }

@@ -1,5 +1,9 @@
 # Bounding Box
 
+How to run:
+- sbt assembly
+- cat ./src/main/resources/test.txt | java -jar ./target/scala-2.12/BoundingBox-assembly-0.1.jar
+
 Write a program that takes input from stdin with the following properties:
 - Input is split into lines delimited by newline characters.
 - Every line has the same length.
