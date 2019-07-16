@@ -1,5 +1,8 @@
 package ru.eremenko
 
+// v stands for vertical, h for horizontal
+case class Point(v: Int, h: Int)
+
 case class Box(topLeft: Point, bottomRight: Point) {
   def isOverlaps(b: Box): Boolean = {
     if (topLeft.h > b.bottomRight.h || b.topLeft.h > bottomRight.h){

@@ -1,7 +1,6 @@
 package ru.eremenko
 
 import org.scalatest.{FlatSpec, Matchers}
-import ru.eremenko.Main.toMatrix
 
 class BoxDiscoverySpec extends FlatSpec with Matchers {
   import BoxDiscovery._
@@ -29,7 +28,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
   "getSet" should "return an empty set on empty input" in {
     val in = """""".stripMargin.split("\n").toIterator
 
-    val r = getSet(toMatrix(in))
+    val r = getSet(Main.toMatrix(in))
     r shouldBe 'empty
   }
 
@@ -40,7 +39,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |------
                |------""".stripMargin.split("\n").toIterator
 
-    val r = getSet(toMatrix(in))
+    val r = getSet(Main.toMatrix(in))
     r shouldBe 'empty
   }
 
@@ -51,7 +50,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |------""".stripMargin.split("\n").toIterator
 
-    val r = getSet(toMatrix(in))
+    val r = getSet(Main.toMatrix(in))
     r should not be 'empty
 
     r.size shouldBe 6
@@ -75,7 +74,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |*---*-""".stripMargin.split("\n").toIterator
 
-    val set = getSet(toMatrix(in))
+    val set = getSet(Main.toMatrix(in))
     val r = discoverContiguousGroup(Point(1,1), set)
     r should not be 'empty
     r shouldBe Set(Point(1,1), Point(2,1),Point(2,2), Point(3,1), Point(3,2), Point(3,3))
@@ -88,7 +87,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |*---*-""".stripMargin.split("\n").toIterator
 
-    val set = getSet(toMatrix(in))
+    val set = getSet(Main.toMatrix(in))
     val r = discoverAllContiguousGroups(set)
     r should not be 'empty
     r.size shouldBe 6
@@ -115,5 +114,67 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
     val r = getContiguousGroupBox(cg.head, cg.tail)
 
     r shouldBe Box(Point(1,1), Point(3,3))
+  }
+
+  "solve" should "return List of Boxes" in {
+    {
+      val input =
+        """**-------***
+          |-*--**--***-
+          |-----***--**
+          |-------***--""".stripMargin.split("\n").toIterator
+
+      val m = Main.toMatrix(input)
+      val r = solve(m)
+
+      r should not be 'empty
+      r.size shouldBe(1)
+
+      r shouldBe List(Box(Point(0,0), Point(1,1)))
+    }
+    {
+      val input =
+        """-*-
+          |***
+          |-*-
+        """.stripMargin.split("\n").toIterator
+
+      val m = Main.toMatrix(input)
+      val r = solve(m)
+
+      r should not be 'empty
+      r.size shouldBe(1)
+
+      r shouldBe List(Box(Point(0,0), Point(2,2)))
+    }
+    {
+      val input =
+        """---**
+          |***-*
+          |-***-
+        """.stripMargin.split("\n").toIterator
+
+      val m = Main.toMatrix(input)
+      val r = solve(m)
+
+      r shouldBe'empty
+    }
+
+    {
+      val input =
+        """*-*--
+          |-*-*-
+          |-**-*
+          |-***-
+        """.stripMargin.split("\n").toIterator
+
+      val m = Main.toMatrix(input)
+      val r = solve(m)
+
+      r should not be 'empty
+      r.size shouldBe(1)
+
+      r shouldBe List(Box(Point(1,1), Point(3,3)))
+    }
   }
 }
