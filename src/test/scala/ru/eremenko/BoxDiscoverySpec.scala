@@ -28,7 +28,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
   "getSet" should "return an empty set on empty input" in {
     val in = """""".stripMargin.split("\n").toIterator
 
-    val r = getSet(Main.toMatrix(in))
+    val r = getPointsSet(Main.toMatrix(in))
     r shouldBe 'empty
   }
 
@@ -39,7 +39,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |------
                |------""".stripMargin.split("\n").toIterator
 
-    val r = getSet(Main.toMatrix(in))
+    val r = getPointsSet(Main.toMatrix(in))
     r shouldBe 'empty
   }
 
@@ -50,7 +50,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |------""".stripMargin.split("\n").toIterator
 
-    val r = getSet(Main.toMatrix(in))
+    val r = getPointsSet(Main.toMatrix(in))
     r should not be 'empty
 
     r.size shouldBe 6
@@ -74,7 +74,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |*---*-""".stripMargin.split("\n").toIterator
 
-    val set = getSet(Main.toMatrix(in))
+    val set = getPointsSet(Main.toMatrix(in))
     val r = discoverContiguousGroup(Point(1,1), set)
     r should not be 'empty
     r shouldBe Set(Point(1,1), Point(2,1),Point(2,2), Point(3,1), Point(3,2), Point(3,3))
@@ -87,7 +87,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |*---*-""".stripMargin.split("\n").toIterator
 
-    val set = getSet(Main.toMatrix(in))
+    val set = getPointsSet(Main.toMatrix(in))
     val r = discoverAllContiguousGroups(set)
     r should not be 'empty
     r.size shouldBe 6
@@ -106,7 +106,7 @@ class BoxDiscoverySpec extends FlatSpec with Matchers {
                |-***--
                |------""".stripMargin.split("\n").toIterator
 
-    val cg = discoverContiguousGroup(Point(1,1), getSet(toMatrix(in)))
+    val cg = discoverContiguousGroup(Point(1,1), getPointsSet(toMatrix(in)))
 
     cg should not be 'empty
     cg shouldBe Set(Point(1,1), Point(2,1),Point(2,2), Point(3,1), Point(3,2), Point(3,3))

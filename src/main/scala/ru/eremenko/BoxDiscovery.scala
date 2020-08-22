@@ -39,7 +39,7 @@ object BoxDiscovery {
     }
   }
 
-  def getSet(m: Vector[Vector[Boolean]]): Set[Point] = {
+  def getPointsSet(m: Vector[Vector[Boolean]]): Set[Point] = {
     val xs = for {
       v <- 0 to (m.size - 1)
       h <- 0 to (m(v).size - 1) if m(v)(h)
@@ -48,7 +48,7 @@ object BoxDiscovery {
   }
 
   def solve(m: Vector[Vector[Boolean]]): List[Box] = {
-    val s = getSet(m)
+    val s = getPointsSet(m)
     val cgs = discoverAllContiguousGroups(s)
     val bb = cgs.filterNot(_.size < 2).map(s => getContiguousGroupBox(s.head, s.tail))
     removeOverlappingBoxes(bb)
